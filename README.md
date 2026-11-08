@@ -1,5 +1,7 @@
 # dsh-skills
 
+仓库：<https://github.com/Luca-42/skill>
+
 Luca-42 的 DSH（DeepSeek Harness）技能集合。每个技能是一个目录，内含 `SKILL.md`
 （YAML frontmatter + 操作说明），按需加载。
 
