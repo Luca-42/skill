@@ -14,8 +14,13 @@ Luca-42 的 DSH（DeepSeek Harness）技能集合。每个技能是一个目录�
 | [`dsh-plugin-market`](skills/dsh-plugin-market/SKILL.md) | 写 DSH 插件市场索引、托管 GitHub Pages、转公开仓库 | 插件要上架「发现」市场、索引不生效、图标 404 |
 | [`pixel-art-restore`](skills/pixel-art-restore/SKILL.md) | 把 AI 生成/网传的「伪像素画」还原成真像素资产：网格体检、proper-pixel-art(ppa) 还原、干净去背、散点清理、验收与整数倍缩放 | 图看着像素但格子不齐/边缘发虚、要还原 sprite 真实分辨率、要批量处理像素图、纠结「还原原网格」还是「降采样转像素」 |
 | [`rembg-cutout`](skills/rembg-cutout/SKILL.md) | 用 rembg（ONNX 深度学习分割）在高清图上 AI 抠图去背，输出透明底 PNG；含环境部署、模型选型、下载排障、参数与验收 | 要抠图/去背/去背景、抠发丝与褶边、为像素画或立绘准备透明底、模型下载报 10054/SSL 错误 |
+| [`zhaopin-collect`](skills/zhaopin-collect/SKILL.md) | 采集考公 / 考编 / 央国企在招信息：4 路分片并发、省考雷达、岗位表下载与 10KB 校验 | `跑今天的招聘采集`、更新在招清单、看看这几天有什么新公告 |
+| [`zhaopin-list-build`](skills/zhaopin-list-build/SKILL.md) | 把采集分片合并成清单：按日期/时刻判状态、校验岗位表、生成今日变化与截止提醒 | `生成清单`、重建台账、自检一下、今天有什么变化、这周什么时候截止 |
 
 配套使用：杂乱背景的图先 `rembg-cutout` 在高清原图上抠图，再 `pixel-art-restore` 像素化；不要先像素化再手工抠。
+
+
+> 注：`zhaopin-collect` / `zhaopin-list-build` 依赖一套工作区脚本（`脚本/dl.py`、`build_list.py`、`verify.py`、`sync_raw.py`、`diff_report.py`、`day_alert.py`）与固定的目录约定（`数据/raw_*.json`、`数据/units.json`、`岗位列表/{考公,考编,央国企}/`）。换机器时需一并带上 `脚本/`，或按 SKILL.md 里的命令替换成等价实现。
 
 ## 使用方式
 
