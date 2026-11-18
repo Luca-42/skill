@@ -1,6 +1,6 @@
 # pixel-art-restore 安装说明
 
-本目录就是 skill 包 `pixel-art-restore`（也可打包成 `pixel-art-restore.zip` 分发），作用是**把 AI 生成的伪像素图还原成真像素资产**。请按下面四步装好。
+本目录是 skill 包 `pixel-art-restore`，作用是**把 AI 生成的伪像素图还原成真像素资产**。它常与 `rembg-cutout`（AI 抠图去背）配套使用：杂乱背景的图先抠图再像素化。
 
 ---
 
@@ -29,11 +29,11 @@ pixel-art-restore/
 
 落位后的正确结构是 `.../.user_skills/pixel-art-restore/SKILL.md`。
 
-常见错误：解压后多套了一层，变成 `pixel-art-restore/pixel-art-restore/SKILL.md` —— 这样技能永远加载不到，请核对。
+常见错误：多套了一层，变成 `pixel-art-restore/pixel-art-restore/SKILL.md` —— 这样技能永远加载不到，请核对。
 
 ## 2. 装依赖
 
-```
+```bash
 pip install proper-pixel-art
 ```
 
@@ -45,7 +45,7 @@ pip install proper-pixel-art
 
 ## 3. 验装
 
-```
+```bash
 python scripts/measure_grid.py <任意像素风图片>
 ```
 
@@ -53,7 +53,7 @@ python scripts/measure_grid.py <任意像素风图片>
 
 再确认命令行入口：
 
-```
+```bash
 ppa --help
 ```
 
@@ -64,9 +64,7 @@ ppa --help
 - **先体检再还原。** 对一张图先跑 `scripts/measure_grid.py`。ppa 假设输入被放大了，对已经是 1px 真分辨率的图会过度缩小（实测 131×159 的成品会被压成 9×10，直接报废）。
 - **不要用 ppa 的 `-t`。** 软边源图会产出粉灰交错的噪点底；用 `--no-transparent` 出实底，再用 `scripts/key_bg.py` 抠背景。
 
----
-
-## 快速上手
+## 5. 快速上手
 
 ```bash
 # 1) 体检：判断这张图该怎么处理
@@ -82,13 +80,8 @@ python scripts/key_bg.py sprite_true.png -o sprite_keyed.png --tol 42 --scale 8 
 python scripts/batch_restore.py ./input ./output --scale 8
 ```
 
-## 技能适用场景
+## 背景处理顺序
 
-- AI 出图/截图/网图看着像像素画，但格子不齐、边缘发虚、分辨率虚高
-- 想把这类图变成游戏可用的像素素材（sprite、道具、UI 图标）
-- 需要判断「直接降采样转像素画」和「还原原网格」该走哪条
-- 需要批量还原一批同源素材
+原图带杂乱/深色背景、需要透明底时，先用 `rembg-cutout` 技能在**高清原图**上抠出透明主体，再回到本技能做像素化。
 
-## 落位后向维护者回报
-
-装好后请回报一行实际路径，例如 `.../.user_skills/pixel-art-restore/`，方便核对结构。
+不要先像素化再手工抠：降采样减色后主体与背景颜色已经混合，边缘无法分辨，只会留下残边或啃掉主体。

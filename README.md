@@ -13,6 +13,9 @@ Luca-42 的 DSH（DeepSeek Harness）技能集合。每个技能是一个目录�
 | [`npm-publish-2fa`](skills/npm-publish-2fa/SKILL.md) | 在开启 2FA 的 npm 账号上发布包（bypass token、临时 userconfig、staged 占位） | `npm publish` 报 403 two-factor / need auth / 只看到 `0.0.0-stage` |
 | [`dsh-plugin-market`](skills/dsh-plugin-market/SKILL.md) | 写 DSH 插件市场索引、托管 GitHub Pages、转公开仓库 | 插件要上架「发现」市场、索引不生效、图标 404 |
 | [`pixel-art-restore`](skills/pixel-art-restore/SKILL.md) | 把 AI 生成/网传的「伪像素画」还原成真像素资产：网格体检、proper-pixel-art(ppa) 还原、干净去背、散点清理、验收与整数倍缩放 | 图看着像素但格子不齐/边缘发虚、要还原 sprite 真实分辨率、要批量处理像素图、纠结「还原原网格」还是「降采样转像素」 |
+| [`rembg-cutout`](skills/rembg-cutout/SKILL.md) | 用 rembg（ONNX 深度学习分割）在高清图上 AI 抠图去背，输出透明底 PNG；含环境部署、模型选型、下载排障、参数与验收 | 要抠图/去背/去背景、抠发丝与褶边、为像素画或立绘准备透明底、模型下载报 10054/SSL 错误 |
+
+配套使用：杂乱背景的图先 `rembg-cutout` 在高清原图上抠图，再 `pixel-art-restore` 像素化；不要先像素化再手工抠。
 
 ## 使用方式
 
